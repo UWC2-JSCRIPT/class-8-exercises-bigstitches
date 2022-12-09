@@ -3,7 +3,7 @@ const formEl = document.getElementById('best-books-form');
 const yearEl = document.getElementById('year');
 const monthEl = document.getElementById('month');
 const dateEl = document.getElementById('date');
-const apiKey = 'e3zkkZ4GLV24HvlMQiXqcbex2gG74xk2';
+const apiKey = 'GOBBLDEGOOK';
 // dog var to help parse
 var dog = {};
 
