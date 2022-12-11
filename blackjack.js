@@ -51,6 +51,7 @@ const calcPoints = function(hand) {
 
 const dealerShouldDraw = function(dealerHand) {
   let points = calcPoints(dealerHand).total;
+  //console.log(points + " " + dealerHand);
   let isSoft = calcPoints(dealerHand).isSoft;
   if (points < 17 || (points === 17 && isSoft)) {
     return true;
@@ -58,6 +59,61 @@ const dealerShouldDraw = function(dealerHand) {
     return false;
   }
 };
+
+/*
+1. Create unit tests with Jasmine to test the following cases:
+
+10, 9 passed in to function should return false
+Ace, 6 passed in to function should return true
+10, 6, Ace passed in to function should return false
+2, 4, 2, 5 passed in should return true
+*/
+
+const testDeck = getDeck();
+//console.log(testDeck);
+
+// Create two new CardPlayers
+let test_one = new CardPlayer('one');
+test_one.hand[0] = testDeck[12]; // 10 of hearts
+test_one.hand[1] = testDeck[11]; // 9 of hearts
+let test_one_value = dealerShouldDraw(test_one.hand);
+//console.log(`${test_one_value}: jasmine test here.`);
+//expect(dealerShouldDraw(test_one.hand)).toBe(true);
+
+
+let test_two = new CardPlayer('two');
+test_two.hand[0] = testDeck[3]; // Ace
+test_two.hand[1] = testDeck[8]; // 6 of heards
+let test_two_value = dealerShouldDraw(test_two.hand);
+//console.log(`${test_two_value}: jasmine test here.`);
+//expect(dealerShouldDraw(test_one.hand)).toBe(true);
+
+
+let test_three = new CardPlayer('three');
+test_three.hand[0] = testDeck[12]; // 10 of hearts
+test_three.hand[1] = testDeck[8]; // 6 of hearts
+test_three.hand[2] = testDeck[3]; // Ace
+let test_three_value = dealerShouldDraw(test_three.hand);
+//console.log(`${test_three_value}: jasmine test here.`);
+//expect(dealerShouldDraw(test_one.hand)).toBe(true);
+
+
+let test_four = new CardPlayer('four');
+test_four.hand[0] = testDeck[4]; //2
+test_four.hand[1] = testDeck[6]; //4
+test_four.hand[0] = testDeck[4]; //2
+test_four.hand[0] = testDeck[7]; //5
+let test_four_value = dealerShouldDraw(test_two.hand);
+//console.log(`${test_four_value}: jasmine test here.`);
+
+describe('Test dealerShouldDraw for Blackjack', ()=> {
+  it('Should return correct boolean result', ()=>{
+    expect(test_one_value).toBe(false);
+    expect(test_two_value).toBe(true);
+    expect(test_three_value).toBe(false);
+    expect(test_four_value).toBe(true);
+  })
+})
 
 /**
  * Determines the winner if both player and dealer stand
@@ -132,4 +188,4 @@ const startGame = function() {
 
   return determineWinner(playerScore, dealerScore);
 };
-// console.log(startGame());
+//console.log(startGame());
